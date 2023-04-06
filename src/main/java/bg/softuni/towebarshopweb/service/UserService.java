@@ -165,7 +165,7 @@ public class UserService {
         }
     }
 
-    public void addRoleById(Long id, RoleNameEnum role) {
+    public void addRoleToUserById(Long id, RoleNameEnum role) {
         Optional<UserEntity> byId = userRepository.findById(id);
         if (byId.isPresent()){
             UserEntity userEntity = byId.get();

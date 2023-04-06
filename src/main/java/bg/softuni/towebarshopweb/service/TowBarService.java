@@ -1,7 +1,7 @@
 package bg.softuni.towebarshopweb.service;
 
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
-import bg.softuni.towebarshopweb.model.dto.carDto.TowbarDto;
+import bg.softuni.towebarshopweb.model.dto.TowbarDto;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
@@ -28,24 +28,22 @@ public class TowBarService {
         this.carService = carService;
     }
 
+
+
     public TowBar findTowbarByCarAndType(CarDTO car, TowBarType towBarType) {
 
-        Optional<Car> optionalCar = carRepository.findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId
-                (car.getMake().getId(), car.getModel().getId(), car.getGeneration().getId(), car.getSerie().getId(), car.getTrim().getId());
+        Optional<Car> optionalCar = carService.findCar(car);
         Car map;
-        if (optionalCar.isEmpty()){
+        if (optionalCar.isEmpty()) {
             map = modelMapper.map(car, Car.class);
             carRepository.save(map);
-        }else {
+        } else {
             map = optionalCar.get();
         }
         Optional<TowBar> byTypeAndCar = towBarRepository.findByTypeAndCar(towBarType, map);
 
 
-        if (byTypeAndCar.isPresent()) {
-            return byTypeAndCar.get();
-        }
-        return new TowBar();
+        return byTypeAndCar.orElseGet(TowBar::new);
 
     }
 
@@ -61,18 +59,17 @@ public class TowBarService {
     public TowBar update(TowbarDto towbarDto, CarDTO carDTO, TowBarType type) {
 
 
-
         Optional<Car> optionalCar = carRepository.findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId
                 (carDTO.getMake().getId(), carDTO.getModel().getId(), carDTO.getGeneration().getId(), carDTO.getSerie().getId(), carDTO.getTrim().getId());
 
         Car car = optionalCar.get();
         Optional<TowBar> byTypeAndCar = towBarRepository.findByTypeAndCar(type, car);
         TowBar towBar;
-        if (byTypeAndCar.isPresent()){
+        if (byTypeAndCar.isPresent()) {
             towBar = byTypeAndCar.get();
             towBar.setPrice(towbarDto.getPrice());
             towBar.setQuantity(towbarDto.getQuantity());
-        }else {
+        } else {
             towBar = modelMapper.map(towbarDto, TowBar.class);
             towBar.setCar(car);
             towBar.setType(type);

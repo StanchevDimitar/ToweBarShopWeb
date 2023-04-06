@@ -5,10 +5,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class ApplicationConfiguration implements WebMvcConfigurer {
+public class InterceptorConfig implements WebMvcConfigurer {
     private final IpBlackListInterceptor ipBlacklistInterceptor;
 
-    public ApplicationConfiguration(IpBlackListInterceptor ipBlacklistInterceptor) {
+    public InterceptorConfig(IpBlackListInterceptor ipBlacklistInterceptor) {
         this.ipBlacklistInterceptor = ipBlacklistInterceptor;
     }
 

@@ -1,5 +1,6 @@
 package bg.softuni.towebarshopweb.service;
 
+import bg.softuni.towebarshopweb.model.dto.CarDTO;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.repository.CarRepository;
 import org.springframework.http.HttpEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarService {
@@ -45,6 +47,10 @@ public class CarService {
         return carRepository.findAll();
     }
 
+    public Optional<Car> findCar(CarDTO car) {
+        return carRepository.findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId
+                (car.getMake().getId(), car.getModel().getId(), car.getGeneration().getId(), car.getSerie().getId(), car.getTrim().getId());
+    }
 
 
 }

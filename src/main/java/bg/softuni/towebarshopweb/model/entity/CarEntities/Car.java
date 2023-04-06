@@ -5,6 +5,7 @@ import bg.softuni.towebarshopweb.model.entity.TowBar;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "cars")
@@ -22,16 +23,16 @@ public class Car extends BaseEntity {
     private Trim trim;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "car")
-    private List<TowBar> towBarList;
+    private Set<TowBar> towBarList;
 
     public Car() {
     }
 
-    public List<TowBar> getTowBarList() {
+    public Set<TowBar> getTowBarList() {
         return towBarList;
     }
 
-    public Car setTowBarList(List<TowBar> towBarList) {
+    public Car setTowBarList(Set<TowBar> towBarList) {
         this.towBarList = towBarList;
         return this;
     }

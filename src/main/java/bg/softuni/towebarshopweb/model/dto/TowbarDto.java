@@ -1,9 +1,7 @@
-package bg.softuni.towebarshopweb.model.dto.carDto;
+package bg.softuni.towebarshopweb.model.dto;
 
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 

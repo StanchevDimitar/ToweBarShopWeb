@@ -3,11 +3,20 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head"></head>
 
+<style>
+    .logo{
+        width: 163px;
+        height: 60px;
+    }
+</style>
 <!-- Navbar is created here -->
 <header>
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" xmlns:sec="http://www.w3.org/1999/xhtml">
         <div class="container">
-            <a href="/" class="navbar-brand">Home page</a>
+            <a href="/" class="navbar-brand"><img src="/static/img/HomeLogo.png" th:src="@{/img/HomeLogo.png}" class="logo run-svg"
+                                                  alt="logo.svn"></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                 <span class="navbar-toggler-icon"></span>
@@ -15,30 +24,29 @@
 
             <!-- Collapse menu is created here -->
 
-            <div class="collapse navbar-collapse" id="navmenu">
+            <div class="collapse navbar-collapse" id="navmenu" >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                             <li><a class="dropdown-item" href="/admin/change-role">Change Role</a></li>
                             <li><a class="dropdown-item" href="/admin/find-active">Find all active accounts</a></li>
-                            <li><a class="dropdown-item" href="/admin/find-nonActive">Find all non-active accounts</a>
-                            </li>
+                            <li><a class="dropdown-item" href="/admin/find-nonActive">Find all non-active accounts</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
-                        <a class="nav-link dropdown-toggle" href="#" id="ordersDropDown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="ordersDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Orders
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/all-orders/fromPhone">Priority Orders From Phone</a>
-                            </li>
+                            <li><a class="dropdown-item" href="/all-orders/fromPhone">Priority Orders From Phone</a></li>
                             <li><a class="dropdown-item" href="/all-orders/fromWeb">Orders From Website</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a href="/add-product" class="nav-link">Add Product</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a href="/my-profile" class="nav-link">My profile</a>

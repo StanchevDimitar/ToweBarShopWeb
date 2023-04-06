@@ -2,7 +2,6 @@ package bg.softuni.towebarshopweb.web;
 
 import bg.softuni.towebarshopweb.model.dto.UserBasicInfoView;
 import bg.softuni.towebarshopweb.model.dto.Username;
-import bg.softuni.towebarshopweb.model.entity.RoleEntity;
 import bg.softuni.towebarshopweb.model.entity.UserEntity;
 import bg.softuni.towebarshopweb.model.enums.RoleNameEnum;
 import bg.softuni.towebarshopweb.service.UserService;
@@ -66,14 +65,14 @@ public class AdminController {
     @GetMapping("/change-role/add_moderator/{id}")
     public String addModerator(@PathVariable Long id){
         RoleNameEnum role = RoleNameEnum.MODERATOR;
-        userService.addRoleById(id,role);
+        userService.addRoleToUserById(id,role);
         user.addRole(role);
         return "redirect:/admin/change-role";
     }
     @GetMapping("/change-role/add_admin/{id}")
     public String addAdmin(@PathVariable Long id){
         RoleNameEnum role = RoleNameEnum.ADMIN;
-        userService.addRoleById(id,role);
+        userService.addRoleToUserById(id,role);
         user.addRole(role);
         return "redirect:/admin/change-role";
     }

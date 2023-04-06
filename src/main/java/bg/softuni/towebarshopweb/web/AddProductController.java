@@ -1,7 +1,7 @@
 package bg.softuni.towebarshopweb.web;
 
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
-import bg.softuni.towebarshopweb.model.dto.carDto.TowbarDto;
+import bg.softuni.towebarshopweb.model.dto.TowbarDto;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
 import bg.softuni.towebarshopweb.repository.CarRepository;
