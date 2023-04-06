@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head"></head>
+
+<!-- Navbar is created here -->
+<header th:replace="fragments/nav"></header>
+<body>
+
+
+
+<!-- Here is created the first section -->
+
+<section class="bg-dark text-light p-5 text-center">
+    <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between my-5">
+            <div class="col-5 mr-5">
+                <h2>Support Bulgarian Manufacturing</h2>
+                <p class="lead my-2">We are the only bulgarian manufacturer for towbars. Support the local business.</p>
+                <a class="btn btn-info btn-lg my-2" href="/quick-order" role="button">Quick Order</a>
+<!--                <button type="button" class="btn ">Quick Order</button>-->
+            </div>
+
+            <div class="col-7 mx-5" sec:authorize="isAuthenticated()">
+                <form class="row g-2">
+                    <div class="col-md-5">
+                        <label for="makeDropdown" class="form-label">Make</label>
+                        <select class="form-select" id="makeDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="modelDropdown" class="form-label">Model</label>
+                        <select class="form-select" id="modelDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="generationDropdown" class="form-label">Generation</label>
+                        <select class="form-select" id="generationDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="seriesDropdown" class="form-label">Series</label>
+                        <select class="form-select" id="seriesDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="trimDropdown" class="form-label">Trim</label>
+                        <select class="form-select" id="trimDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-10 mt-3">
+                        <button type="submit" class="btn btn-primary">Find car</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-9" sec:authorize="!isAuthenticated()">
+                <th:block sec:authorize="!isAuthenticated()">
+                    <img class="img-fluid w-50"  src="/static/img/car-with-spare-wheel-svgrepo-com.svg" th:src="@{/img/car-with-spare-wheel-svgrepo-com.svg}" alt="Home page photo">
+                </th:block>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Here is created the down header -->
+
+<section class="bg-primary text-light p-5">
+    <div class="container">
+        <div class="align-items-center d-md-flex">
+            <h3 class="mb-3 mb-md-0">
+                Our options are Here
+            </h3>
+        </div>
+    </div>
+</section>
+
+
+<!-- Here are created the boxes -->
+
+<section class="p-5">
+    <div class="containe">
+        <div class="row text-center g-4">
+            <div class="col-md">
+                <div class="card bg-warning" style="width: 18rem;">
+                    <img src="../static/img/fixed.jpg" style="width: 18rem; height: 11rem;" th:src="@{img/fixed.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body text-bg-secondary p-3">
+                        <p class="card-text">Fixed tow bars. Prose and cons. Everything you need to know!</p>
+                        <a href="/info/fixed" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/detachable.png" style="width: 18rem; height: 11rem;" th:src="@{img/detachable.png}" class="card-img-top" alt="...">
+                    <div class="card-body text-bg-secondary p-3">
+                        <p class="card-text">Detachable tow bars. Prose and cons. Everything you need to know!</p>
+                        <a href="/info/detachable" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="card bg-info" style="width: 18rem;">
+                    <img src="../static/img/retractable.jpg" style="width: 18rem; height: 11rem;" th:src="@{img/retractable.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body text-bg-secondary p-3">
+                        <p class="card-text">Retractable tow bars. Prose and cons. Everything you need to know!</p>
+                        <a href="/info/retractable" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Here is created the footer -->
+
+<footer th:replace="fragments/footer">
+</footer>
+
+<script>
+    const makeDropdown = document.getElementById("makeDropdown");
+
+    fetch("/api/users")
+        .then(response => response.json())
+        .then(users => {
+            users.forEach(user => {
+                const option = document.createElement("option");
+                option.value = user.id;
+                option.text = user.username;
+                makeDropdown.add(option);
+            });
+        });
+    const modelDropdown = document.getElementById("modelDropdown");
+
+    fetch("/api/users")
+        .then(response => response.json())
+        .then(users => {
+            users.forEach(user => {
+                const option = document.createElement("option");
+                option.value = user.id;
+                option.text = user.username;
+                modelDropdown.add(option);
+            });
+        });
+    const generationDropdown = document.getElementById("generationDropdown");
+
+    fetch("/api/users")
+        .then(response => response.json())
+        .then(users => {
+            users.forEach(user => {
+                const option = document.createElement("option");
+                option.value = user.id;
+                option.text = user.username;
+                generationDropdown.add(option);
+            });
+        });
+    const seriesDropdown = document.getElementById("seriesDropdown");
+
+    fetch("/api/users")
+        .then(response => response.json())
+        .then(users => {
+            users.forEach(user => {
+                const option = document.createElement("option");
+                option.value = user.id;
+                option.text = user.username;
+                seriesDropdown.add(option);
+            });
+        });
+    const trimDropdown = document.getElementById("trimDropdown");
+
+    fetch("/api/users")
+        .then(response => response.json())
+        .then(users => {
+            users.forEach(user => {
+                const option = document.createElement("option");
+                option.value = user.id;
+                option.text = user.username;
+                trimDropdown.add(option);
+            });
+        });
+
+</script>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

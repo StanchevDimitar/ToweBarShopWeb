@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+
+<head th:replace="fragments/head"></head>
+
+<!-- Navbar is created here -->
+<header th:replace="fragments/nav"></header>
+<body>
+
+
+<section class="p-5 bg-dark my-5 mb-0">
+    <div class="container">
+        <div class="row g-2">
+            <div class="col-md">
+                <h2 class="text-center text-light mb-4 fw-bold">You can take your order from our physical store</h2>
+                <ul class="list-group list-group-flush lead">
+                    <li class="list-group-item">
+                        <span class="fw-bold">Store location:</span>
+                        Hristo Botev blvd. 132
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Telephone:</span>
+                        +359 738 / 85 801
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Telephone:</span>
+                        +032 650 / 991
+                    </li>
+                    <li class="list-group-item">
+                        <span class="fw-bold">Email:</span>
+                        office@roiex.com
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md mx-5">
+                <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d448.3570421919307!2d24.76011347418395!3d42.1362537053613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acd1afdd6c2d49%3A0xcd46a036e16ff2ed!2z0KLQldCT0JvQmNCn0Jgg0Jgg0JDQmtCh0JXQodCe0JDQoNCYIC0gS0tDQVJQQVJUUy5DT00!5e0!3m2!1sbg!2sbg!4v1678701394104!5m2!1sbg!2sbg"
+                        width="600" height="450" style="border: 10px;;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<section class="p-5 bg-primary text-light my-0 mb-0">
+
+
+
+    <div class="container">
+        <th:block th:if="${entered == false}">
+            <form th:object="${phone}"
+                  th:action="@{/quick-order}"
+                  th:method="POST">
+                <div class="d-md-flex justify-content-between align-items-center">
+                    <h4 class="">
+                        Here you can enter your phone number and we will call you back to place your order:
+                    </h4>
+                    <div class="input-group" style="width: 50%">
+                            <input th:field="*{number}" type="text" class="form-control"
+                                   placeholder="Enter your phone number here...">
+
+                        <button class="btn btn-dark btn-lg" type="submit" id="button-addon2">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </th:block>
+
+        <th:block th:if="${entered == true}">
+            <div class="d-md-flex justify-content-between align-items-center">
+                <h4 class="">
+                    Thank you! We will call you back as soon as possible!
+                </h4>
+
+            </div>
+
+        </th:block>
+
+
+
+
+    </div>
+</section>
+
+
+<footer th:replace="fragments/footer">
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script class="iti-load-utils" async="" src="https://bid.cars/build/js/utils-tel.js"></script>
+</body>
+
+</html>

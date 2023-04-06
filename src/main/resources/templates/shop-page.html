@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Give Role</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href=
+            "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+
+<!-- Navbar is created here -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a href="/" class="navbar-brand">Home page</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapse menu is created here -->
+
+        <div class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/admin/change-role">Change Role</a></li>
+                        <li><a class="dropdown-item" href="/admin/find-active">Find all active accounts</a></li>
+                        <li><a class="dropdown-item" href="/admin/find-nonActive">Find all non-active accounts</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
+                    <a class="nav-link dropdown-toggle" href="#" id="ordersDropDown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Orders
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li><a class="dropdown-item" href="/all-orders/fromPhone">Priority Orders From Phone</a></li>
+                        <li><a class="dropdown-item" href="/all-orders/fromWeb">Orders From Website</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/my-profile" class="nav-link">My profile</a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a href="/users/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a href="/users/register" class="nav-link">Register</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/cart" class="nav-link">Cart</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form
+                            th:method="post"
+                            th:action="@{/users/logout}">
+                        <input class="btn btn-link nav-link" type="submit" value="Logout">
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+    body {
+        background-color: rgba(13, 110, 253, 6);
+    }
+
+    .profile-card {
+        background-color: whitesmoke;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        cursor: pointer;
+        min-height: 90vh;
+    }
+
+    .social-list li {
+        padding: 10px;
+        color: #0833e3;
+        font-size: 19px
+    }
+</style>
+
+
+<body>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="container">
+            <div class="profile-card p-3 py-4 mb-3">
+                <form class="row g-5 mb-5">
+                    <div class="col-md-2">
+                        <label for="makeDropdown" class="form-label">Make</label>
+                        <select class="form-select" id="makeDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="modelDropdown" class="form-label">Model</label>
+                        <select class="form-select" id="modelDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label for="generationDropdown" class="form-label">Generation</label>
+                        <select class="form-select" id="generationDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="seriesDropdown" class="form-label">Series</label>
+                        <select class="form-select" id="seriesDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="trimDropdown" class="form-label">Trim</label>
+                        <select class="form-select" id="trimDropdown" name="user">
+                            <option value="">--Select User--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-10 mt-3">
+                        <button type="submit" class="btn btn-primary">Find car</button>
+                    </div>
+                </form>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-content-center text-center">
+                            <div class="col">
+                                <div class="ms-3">
+                                    <img class="img-fluid card-img col-9" id="no-background" src="/static/img/fixed.png"
+                                         th:src="@{/img/fixed.png}"
+                                         alt="">
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <h5>Fixed Towbar:</h5>
+                                    <p>Fixed towbars are permanently attached to your vehicle, giving you the
+                                        flexibility to tow whenever you need to. A fixed towbar is often a cheaper
+                                        option as it has a simpler design and requires little or no maintenance.</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div>
+                                        <h5> Price: 550$</h5>
+                                    </div>
+                                </div>
+                                <th:block>
+                                    <div class="row">
+
+                                        <span class="text-success fw-bold">In stock <i class="bi bi-check-circle "></i></span>
+                                        <div class="row text-center align-content-center">
+                                            <div>
+                                                <a class="btn-secondary btn align-content-right"
+                                                   th:href="@{/admin/find-active/disable/{id}(id = *{id})}">Buy
+                                                    Now</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </th:block>
+                                <th:block>
+                                    <span class="text-danger fw-bold">Out of stock <img style="width: 30px"
+                                                                                        src="../static/img/out-of-stock.png"
+                                                                                        th:src="@{img/out-of-stock.png}"
+                                                                                        alt=""></span>
+                                    <div>
+                                        <button type="button" class="btn-secondary btn align-content-right">Buy Now
+                                        </button>
+                                    </div>
+
+                                </th:block>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-content-center text-center">
+                            <div class="col">
+                                <div class="ms-3">
+                                    <img class="img-fluid card-img col-9" id="no-background"
+                                         src="/static/img/detachable.png"
+                                         th:src="@{/img/detachable.png}"
+                                         alt="">
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <h5>Detachable Towbar:</h5>
+                                    <p>A detachable towbar is just as safe and sturdy as a fixed towbar, with the added
+                                        benefit of being able to remove the neck. Some detachable towbars allow you to
+                                        tow and carry bikes at the same time and when you are not towing, it becomes
+                                        almost invisible once removed.</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div>
+                                        <h5> Price: 1100$</h5>
+                                    </div>
+                                </div>
+                                <th:block>
+                                    <div class="row">
+
+                                        <span class="text-success fw-bold">In stock <i class="bi bi-check-circle "></i></span>
+                                        <div class="row text-center align-content-center">
+                                            <div>
+                                                <a class="btn-secondary btn align-content-right"
+                                                   th:href="@{/admin/find-active/disable/{id}(id = *{id})}">Buy
+                                                    Now</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </th:block>
+                                <th:block>
+                                    <span class="text-danger fw-bold">Out of stock <img style="width: 30px"
+                                                                                        src="../static/img/out-of-stock.png"
+                                                                                        th:src="@{img/out-of-stock.png}"
+                                                                                        alt=""></span>
+                                    <div>
+                                        <button type="button" class="btn-secondary btn align-content-right">Buy Now
+                                        </button>
+                                    </div>
+
+                                </th:block>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-content-center text-center">
+                            <div class="col">
+                                <div class="ms-3">
+                                    <img class="img-fluid card-img col-9" id="nobackground"
+                                         src="/static/img/retractable.png"
+                                         th:src="@{/img/retractable.png}"
+                                         alt="">
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <h5>Retractable Towbar:</h5>
+                                    <p>The retractable towbar is the luxury version of towbars. With the simple push of
+                                        a button it becomes available – no matter if you want to go on tour with your
+                                        cycle carrier or if you want to go on vacation with your caravan.</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <div>
+                                        <h5> Price: 2500$</h5>
+                                    </div>
+                                </div>
+                                <th:block>
+                                    <div class="row">
+
+                                        <span class="text-success fw-bold">In stock <i class="bi bi-check-circle "></i></span>
+                                        <div class="row text-center align-content-center">
+                                            <div>
+                                                <a class="btn-secondary btn align-content-right"
+                                                   th:href="@{/admin/find-active/disable/{id}(id = *{id})}">Buy
+                                                    Now</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </th:block>
+                                <th:block>
+                                    <span class="text-danger fw-bold">Out of stock <img style="width: 30px"
+                                                                                        src="../static/img/out-of-stock.png"
+                                                                                        th:src="@{img/out-of-stock.png}"
+                                                                                        alt=""></span>
+                                    <div>
+                                        <button type="button" class="btn-secondary btn align-content-right">Buy Now
+                                        </button>
+                                    </div>
+
+                                </th:block>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

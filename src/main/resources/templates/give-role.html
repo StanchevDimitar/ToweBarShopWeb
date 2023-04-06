@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Give Role</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+<!-- Navbar is created here -->
+<header th:replace="fragments/nav"></header>
+<style>
+    body {
+        background-color: rgba(13, 110, 253, 6);
+    }
+
+    .profile-card {
+        background-color: whitesmoke;
+        border: none;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        cursor: pointer;
+        min-height: 65vh;
+    }
+
+    .social-list li {
+        padding: 10px;
+        color: #0833e3;
+        font-size: 19px
+    }
+</style>
+
+<body>
+
+<main class="p-5 align-content-center">
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="container col-md-7">
+                <div class="profile-card p-3 py-4">
+
+                    <div class="row">
+                        <div class="col-auto mb-3">
+                            <button type="button" onclick="history.back()" class="btn btn-outline-primary px-4">Go
+                                Back
+                            </button>
+                        </div>
+                        <div class="col-auto dropdown mb-3">
+                            <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Find by username
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/admin/find-active">Find all active</a></li>
+                                <li><a class="dropdown-item" href="/admin/find-nonActive">Find all non-active</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <form class="row g-3 mb-5"
+                          th:method="post"
+                          th:action="@{/admin/change-role}">
+                        <label for="inputUsername4" class="form-label mb-0">Username:</label>
+                        <div class="input-group col-md-12">
+                            <input th:field="${username.username}"
+                                   id="inputUsername4" type="text" class="form-control"
+                                   placeholder="Search by username">
+                            <button class="btn btn-dark btn-lg" type="submit" id="button-addon2">Search</button>
+                        </div>
+                    </form>
+
+
+                    <div
+                            th:object="${user}">
+                        <th:block th:if="${user != null}">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between ">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ms-3">
+                                                <!-- th:text="|Tow bar type: *{towBar.getType()}|" -->
+                                                <span class="h6 align-items-center" th:text="|Username: *{username}|">Username: GoshoIgracha
+                                            </span>
+                                                <!-- th:text="*{towBar.name}" -->
+                                                <p class="h6 align-items-center"
+                                                   th:text="|Full name: *{firstName} *{lastName}|">Full name: Gosho </p>
+                                                <th:block th:if="*{active == false}">
+                                                    <p class="h6 align-items-center text-danger fw-bold">Profile is
+                                                        deactivated</p>
+                                                </th:block>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div style="width: 120px;">
+                                                <td style="width: 100%">
+                                                    <button type="button" class="btn btn-outline-secondary me-2"
+                                                            data-bs-toggle="modal"
+                                                            th:data-bs-target="'#openModal' + *{id}">Change Role
+                                                    </button>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Modal -->
+                                        <div class="modal modal-lg fade" th:id="'openModal' + *{id}" tabindex="-1"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Change role panel</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table class="table table-bordered table-hover mt-1">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>User Id</th>
+                                                                <th>Username</th>
+                                                                <th>Role Admin</th>
+                                                                <th>Role Moderator</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td th:text="*{id}">1001</td>
+                                                                <td th:text="|*{username}|">John Doe</td>
+
+                                                                <!--                                                                Is the user Admin-->
+
+                                                                <th:block th:if="*{containsAdmin() == true}">
+                                                                    <div class="d-flex flex-row align-items-center">
+                                                                        <div>
+                                                                            <td><a
+                                                                                    class="btn-danger btn align-content-right"
+                                                                                    th:href="@{/admin/change-role/remove_admin/{id}(id = *{id})}">Remove
+                                                                                Role</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </th:block>
+                                                                <th:block th:if="*{containsAdmin() == false}">
+                                                                    <div class="d-flex flex-row align-items-center">
+                                                                        <div>
+                                                                            <td>
+                                                                                <a class="btn-success btn align-content-right"
+                                                                                   th:href="@{/admin/change-role/add_admin/{id}(id = *{id})}">Make
+                                                                                    Admin</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </th:block>
+
+                                                                <!--                                                                Is the user Moderator-->
+
+                                                                <th:block th:if="*{containsModerator() == true}">
+                                                                    <div class="d-flex flex-row align-items-center">
+                                                                        <div>
+                                                                            <td><a
+                                                                                    class="btn-danger btn align-content-right"
+                                                                                    th:href="@{/admin/change-role/remove_moderator/{id}(id = *{id})}">Remove
+                                                                                Role</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </th:block>
+                                                                <th:block th:if="*{containsModerator() == false}">
+                                                                    <div class="d-flex flex-row align-items-center">
+                                                                        <div>
+                                                                            <td>
+                                                                                <a class="btn-success btn align-content-right"
+                                                                                   th:href="@{/admin/change-role/add_moderator/{id}(id = *{id})}">Make
+                                                                                    Moderator</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </th:block>
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                        <h5 th:text="|*{firstName} *{lastName} has following roles:|"></h5>
+                                                        <span>User</span><span th:if="*{containsModerator()}">, Moderator</span><span
+                                                            th:if="*{containsAdmin()}">, Admin</span>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <th:block th:if="*{active == false}">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div style="width: 15%;">
+                                                    <td style="width: 15%"><a
+                                                            class="btn-success btn align-content-right"
+                                                            th:href="@{/admin/change-role/activate/{id}(id = *{id})}">Enable</a>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                        <th:block th:if="*{active == true}">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div style="width: 80px;">
+                                                    <td style="width: 15%"><a class="btn-danger btn align-content-right"
+                                                                              th:href="@{/admin/change-role/disable/{id}(id = *{id})}">Disable</a>
+                                                </div>
+                                            </div>
+                                        </th:block>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/footer">
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

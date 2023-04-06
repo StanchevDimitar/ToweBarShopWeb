@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="https://bid.cars/vendor/bootstrap/css/bootstrap.min.css">
+
+    <link rel="icon" type="image/png" href="images/vintage-car-png.web">
+
+    <link rel="stylesheet" type="text/css" href="https://bid.cars/css/style.css">
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1100.0" data-gr-ext-installed="">
+
+<section class="fullpage-section signup-page">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top only-logo">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img src="https://bid.cars/img/logo.svg"
+                                                  class="logo run-svg"></a>
+        </div>
+    </nav>
+
+    <div class="half-part left-side-part" style="background-image: url('/img/953728c59e28e7e13550344d08f1b52a.jpg')">
+
+
+        <!-- Here is created the left side -->
+
+        <div id="carousel-text" class="carousel slide carousel-texter" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-text" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-text" data-slide-to="1" class="active"></li>
+                <li data-target="#carousel-text" data-slide-to="2" class="active"></li>
+            </ol>
+
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item">
+                    <h5>Buying American cars now easier than ever</h5>
+                    <p>BidCars care about every step by step process. Fast, without unnecessary paperwork and
+                        additional charges. The simplest way to import your first American's car.</p>
+                </div>
+                <div class="carousel-item">
+                    <h5>Just Bid &amp; Win with one click</h5>
+                    <p>BidCars deliver vehicle to your place of resident. Follow your vehicle location including
+                        shipping tracking. No additional charges for photos inspection at our werehouse.</p>
+                </div>
+                <div class="carousel-item active">
+                    <h5>Sign up and see how much you can buy</h5>
+                    <p>BidCars help you search through over 50 000 vehicles available to bid every month. 5
+                        werehouses localized in Newark, Savannah, Indianapolis, Houston and Los Angeles let you ship
+                        your cargo without unnecessary additionall trucking cost.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Here is created the right side -->
+
+    <div class="half-part right-side-part">
+        <div class="middle-part">
+            <h5>Welcome to My <span>Fucking</span> site</h5>
+            <h6>Set up your account and begin making your first bids!</h6>
+            <form th:method="post"
+                  th:object="${userModel}"
+                  th:action="@{/users/register}"
+                  class="psa-form form-login" id="signupForm" method="POST" novalidate="novalidate">
+                <div class="form-group">
+                    <label for="firstname">First Name*</label>
+                    <input th:field="*{firstName}"
+                           type="text" class="form-control" id="firstname" name="first_name"
+                           aria-describedby="FirstName" value="" placeholder="Enter your First Name">
+                    <p class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errorclass="error" th:errors="*{firstName}"></p>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Last*</label>
+                    <input th:field="*{lastName}"
+                           type="text" class="form-control" id="lastname" name="last_name"
+                           aria-describedby="LastName" value="" placeholder="Enter your Last Name">
+                    <p class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errorclass="error" th:errors="*{lastName}"></p>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username*</label>
+                    <input th:field="*{username}"
+                           type="text" class="form-control" id="username" name="username"
+                           aria-describedby="usernameHelp"
+                           value="" placeholder="Enter your Username">
+                    <p class="text-danger" th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}"></p>
+                    <p class="text-danger" th:unless="${isValid == true}">Username is already used</p>
+                </div>
+
+                <div class="form-group">
+                    <label th:field="*{password}"
+                           for="password">Password*</label>
+                    <input type="password" class="form-control" id="password" name="password" value=""
+                           placeholder="Enter your Password">
+                    <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password*</label>
+                    <input th:field="*{confirmPassword}"
+                           type="password" class="form-control" id="confirm_password" name="password_confirmation"
+                           value="" placeholder="Confirm your Password">
+                    <p class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errorclass="error" th:errors="*{confirmPassword}"></p>
+                    <p class="text-danger" th:unless="${passwordMatch == true}">Confirm password does not match</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+
+                <p class="bottom-line-form">Already have an account? <a href="/user/login">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+</section>
+
+
+<script class="iti-load-utils" async="" src="https://bid.cars/build/js/utils-tel.js"></script>
+</body>
+<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+
+</html>
