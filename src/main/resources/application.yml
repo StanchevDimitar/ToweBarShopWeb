@@ -36,11 +36,10 @@ spring:
   #cloud-name:
 server:
   port: 8090
-#  error:
-#    whitelabel:
-#      enabled: false
-#
-#    path: /bad-error
+  error:
+    path: "error"
+    whitelabel:
+      enabled: false
 
 
 

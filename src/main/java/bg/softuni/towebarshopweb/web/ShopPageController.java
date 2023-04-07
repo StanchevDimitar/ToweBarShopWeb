@@ -2,20 +2,17 @@ package bg.softuni.towebarshopweb.web;
 
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
-import bg.softuni.towebarshopweb.model.entity.CartItem;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
 import bg.softuni.towebarshopweb.repository.CarRepository;
 import bg.softuni.towebarshopweb.service.CartItemService;
 import bg.softuni.towebarshopweb.service.TowBarService;
-import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 import java.util.Optional;

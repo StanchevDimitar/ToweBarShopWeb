@@ -5,6 +5,7 @@ import bg.softuni.towebarshopweb.repository.UserRepository;
 import bg.softuni.towebarshopweb.service.AppUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 import static org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter.Directive.*;
 
-@Component
+@Configuration
 public class SecurityConfig {
 
 
