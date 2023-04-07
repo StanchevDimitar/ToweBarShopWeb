@@ -46,15 +46,7 @@ public class AddProductController {
         if (!model.containsAttribute("car")) {
             model.addAttribute("car", this.car);
         }
-        if (!model.containsAttribute("fixed")) {
-            model.addAttribute("fixed", fixed);
-        }
-        if (!model.containsAttribute("detachable")) {
-            model.addAttribute("detachable", detachable);
-        }
-        if (!model.containsAttribute("retractable")) {
-            model.addAttribute("retractable", retractable);
-        }
+        towBarService.extractTowbarsView(model, fixed, detachable, retractable);
 
         return "add-products";
     }

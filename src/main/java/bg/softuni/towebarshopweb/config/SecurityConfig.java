@@ -45,10 +45,17 @@ public class SecurityConfig {
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
 
                 requestMatchers("/", "/quick-order").permitAll().
+                requestMatchers("/info").permitAll().
+                requestMatchers("/add-product/*").hasAnyRole("ADMIN","MODERATOR").
+                requestMatchers("/address-info/*").authenticated().
+                requestMatchers("/cart/*").authenticated().
+                requestMatchers("my-profile").authenticated().
+                requestMatchers("/api").authenticated().
+                requestMatchers("/shop/*").authenticated().
                 // the URL-s below are available for all users - logged in and anonymous
-                        requestMatchers("/users/login", "/users/register", "/users/login-error").anonymous().
+                        requestMatchers("/users/*").anonymous().
                         requestMatchers("/admin/*").hasRole("ADMIN").
-                        requestMatchers("/all-orders").hasRole("ADMIN").
+                        requestMatchers("/all-orders").hasAnyRole("ADMIN","MODERATOR").
                 requestMatchers(staticResources).permitAll().
                 anyRequest().authenticated().
                 and()

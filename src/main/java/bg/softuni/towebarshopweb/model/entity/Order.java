@@ -39,6 +39,9 @@ public class Order extends BaseEntity {
     @Column
     private Boolean isSent;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<TowBar> products;
+
     public Order() {
         this.isFinished = false;
         this.isSent =false;
@@ -50,6 +53,15 @@ public class Order extends BaseEntity {
 
     public Order setUser(UserEntity user) {
         this.user = user;
+        return this;
+    }
+
+    public List<TowBar> getProducts() {
+        return products;
+    }
+
+    public Order setProducts(List<TowBar> products) {
+        this.products = products;
         return this;
     }
 

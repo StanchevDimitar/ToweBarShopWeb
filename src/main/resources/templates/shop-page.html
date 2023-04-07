@@ -18,9 +18,17 @@
 </head>
 
 <!-- Navbar is created here -->
+<style>
+    .logo{
+        width: 163px;
+        height: 50px;
+    }
+</style>
+
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container">
-        <a href="/" class="navbar-brand">Home page</a>
+        <a href="/" class="navbar-brand"><img src="/static/img/logo4.png" th:src="@{/img/logo4.png}" class="logo run-svg"
+                                              alt="logo.svn"></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
             <span class="navbar-toggler-icon"></span>
@@ -28,11 +36,10 @@
 
         <!-- Collapse menu is created here -->
 
-        <div class="collapse navbar-collapse" id="navmenu">
+        <div class="collapse navbar-collapse" id="navmenu" >
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -42,14 +49,16 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">
-                    <a class="nav-link dropdown-toggle" href="#" id="ordersDropDown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="ordersDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Orders
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                         <li><a class="dropdown-item" href="/all-orders/fromPhone">Priority Orders From Phone</a></li>
                         <li><a class="dropdown-item" href="/all-orders/fromWeb">Orders From Website</a></li>
                     </ul>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/add-product" class="nav-link">Add Product</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a href="/my-profile" class="nav-link">My profile</a>
@@ -151,6 +160,8 @@
 
                 </form>
 
+                <h4 th:text="|Current car is: ${car.make.name} ${car.model.name} ${car.generation.name} ${car.trim.name}|"></h4>
+
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-content-center text-center">
@@ -173,27 +184,47 @@
                             <div class="col">
                                 <div class="row">
                                     <div>
-                                        <h5> Price: 550$</h5>
+                                        <h5> Price: <span class="fw-bold" th:text="${fixed.price}"></span></h5>
                                     </div>
                                 </div>
-                                <th:block>
+                                <th:block th:if="${fixed.quantity > 0}">
                                     <div class="row">
 
                                         <span class="text-success fw-bold">In stock <i class="bi bi-check-circle "></i></span>
                                         <div class="row text-center align-content-center">
                                             <div>
-                                                <a class="btn-secondary btn align-content-right"
-                                                   th:href="@{/admin/find-active/disable/{id}(id = *{id})}">Buy
+                                                <a id="liveToastButton" class="btn-secondary btn align-content-center"
+                                                   th:href="@{/shop/add-to-cart/{type}(type = ${fixed.type})}">Buy
                                                     Now</a>
                                             </div>
+
+
+<!--                                            I Here i can show toast-->
+
+<!--                                            <button type="button" class="btn btn-primary" id="#liveToast">Show live toast</button>-->
+
+<!--                                            <div aria-live="polite" aria-atomic="true" class="bg-dark position-relative bd-example-toasts">-->
+<!--                                                <div class="toast-container position-absolute p-3" id="toastPlacement">-->
+<!--                                                    <div class="toast">-->
+<!--                                                        <div class="toast-header">-->
+<!--                                                            <img src="..." class="rounded me-2" alt="...">-->
+<!--                                                            <strong class="me-auto">Bootstrap</strong>-->
+<!--                                                            <small>11 mins ago</small>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="toast-body">-->
+<!--                                                            Hello, world! This is a toast message.-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                         </div>
 
                                     </div>
                                 </th:block>
-                                <th:block>
+                                <th:block th:unless="${fixed.quantity > 0}">
                                     <span class="text-danger fw-bold">Out of stock <img style="width: 30px"
                                                                                         src="../static/img/out-of-stock.png"
-                                                                                        th:src="@{img/out-of-stock.png}"
+                                                                                        th:src="@{static/img/out-of-stock.png}"
                                                                                         alt=""></span>
                                     <div>
                                         <button type="button" class="btn-secondary btn align-content-right">Buy Now
@@ -233,24 +264,24 @@
                             <div class="col">
                                 <div class="row">
                                     <div>
-                                        <h5> Price: 1100$</h5>
+                                        <h5> Price: <span class="fw-bold" th:text="${detachable.price}"></span></h5>
                                     </div>
                                 </div>
-                                <th:block>
+                                <th:block th:if="${detachable.quantity > 0}">
                                     <div class="row">
 
                                         <span class="text-success fw-bold">In stock <i class="bi bi-check-circle "></i></span>
                                         <div class="row text-center align-content-center">
                                             <div>
-                                                <a class="btn-secondary btn align-content-right"
-                                                   th:href="@{/admin/find-active/disable/{id}(id = *{id})}">Buy
+                                                <a class="btn-secondary btn align-content-center"
+                                                   th:href="@{/shop/add-to-cart/{type}(type = ${detachable.type})}">Buy
                                                     Now</a>
                                             </div>
                                         </div>
 
                                     </div>
                                 </th:block>
-                                <th:block>
+                                <th:block  th:unless="${detachable.quantity > 0}">
                                     <span class="text-danger fw-bold">Out of stock <img style="width: 30px"
                                                                                         src="../static/img/out-of-stock.png"
                                                                                         th:src="@{img/out-of-stock.png}"
@@ -292,24 +323,24 @@
                             <div class="col">
                                 <div class="row">
                                     <div>
-                                        <h5> Price: 2500$</h5>
+                                        <h5> Price: <span class="fw-bold" th:text="${retractable.price}"></span></h5>
                                     </div>
                                 </div>
-                                <th:block>
+                                <th:block th:if="${retractable.quantity > 0}">
                                     <div class="row">
 
                                         <span class="text-success fw-bold">In stock <i class="bi bi-check-circle "></i></span>
                                         <div class="row text-center align-content-center">
                                             <div>
-                                                <a class="btn-secondary btn align-content-right"
-                                                   th:href="@{/admin/find-active/disable/{id}(id = *{id})}">Buy
+                                                <a class="btn-secondary btn align-content-center justify-content-center"
+                                                   th:href="@{/shop/add-to-cart/{type}(type = ${retractable.type})}">Buy
                                                     Now</a>
                                             </div>
                                         </div>
 
                                     </div>
                                 </th:block>
-                                <th:block>
+                                <th:block th:unless="${retractable.quantity > 0}" >
                                     <span class="text-danger fw-bold">Out of stock <img style="width: 30px"
                                                                                         src="../static/img/out-of-stock.png"
                                                                                         th:src="@{img/out-of-stock.png}"

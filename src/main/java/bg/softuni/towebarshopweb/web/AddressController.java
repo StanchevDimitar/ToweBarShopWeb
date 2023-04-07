@@ -2,6 +2,7 @@ package bg.softuni.towebarshopweb.web;
 
 import bg.softuni.towebarshopweb.model.dto.AddressInfoDto;
 import bg.softuni.towebarshopweb.model.entity.CartItem;
+import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.repository.CartItemRepository;
 import bg.softuni.towebarshopweb.service.AddressService;
 import bg.softuni.towebarshopweb.service.CartItemService;
@@ -56,10 +57,11 @@ public class AddressController {
 
             return "redirect:/address-info/"+ this.saveId;
         }
-
-        orderService.updateOrder(this.saveId, addressInfoDto);
+        List<TowBar> towBars = cartItemService.updateQuantities();
+        orderService.updateOrder(this.saveId, addressInfoDto, towBars);
 
         addressService.clearCart();
+
 
         return "redirect:complete-order";
     }

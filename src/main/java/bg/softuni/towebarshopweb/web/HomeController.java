@@ -42,14 +42,10 @@ public class HomeController {
     @PostMapping("/find-order")
     public String findProduct(@Valid CarDTO carDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
-        Optional<Car> optionalCar = carService.findCar(carDTO);
-        if (optionalCar.isPresent()){
-            Long id = optionalCar.get().getId();
-            return "redirect:/shop/" + id;//ToDo add id
-        }
+        Long id = carService.createCar(carDTO).getId();
 
 
-        return "redirect:/shop/" + -1;//ToDo add id
+        return "redirect:/shop/" + id;//ToDo add id
     }
 
 

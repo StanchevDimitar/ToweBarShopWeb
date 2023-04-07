@@ -9,6 +9,7 @@ import bg.softuni.towebarshopweb.repository.CarRepository;
 import bg.softuni.towebarshopweb.repository.TowBarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +33,15 @@ public class TowBarService {
 
     public TowBar findTowbarByCarAndType(CarDTO car, TowBarType towBarType) {
 
-        Optional<Car> optionalCar = carService.findCar(car);
-        Car map;
-        if (optionalCar.isEmpty()) {
-            map = modelMapper.map(car, Car.class);
-            carRepository.save(map);
-        } else {
-            map = optionalCar.get();
-        }
+        Car map = carService.createCar(car);
+
         Optional<TowBar> byTypeAndCar = towBarRepository.findByTypeAndCar(towBarType, map);
 
 
         return byTypeAndCar.orElseGet(TowBar::new);
 
     }
+
 
     public List<TowBar> findAllByCar(CarDTO car) {
 
@@ -55,6 +51,19 @@ public class TowBarService {
         towBarList.add(findTowbarByCarAndType(car, TowBarType.RETRACTABLE));
         return towBarList;
     }
+
+    public void extractTowbarsView(Model model, TowBar fixed, TowBar detachable, TowBar retractable){
+        if (!model.containsAttribute("fixed")) {
+            model.addAttribute("fixed", fixed);
+        }
+        if (!model.containsAttribute("detachable")) {
+            model.addAttribute("detachable", detachable);
+        }
+        if (!model.containsAttribute("retractable")) {
+            model.addAttribute("retractable", retractable);
+        }
+    }
+
 
     public TowBar update(TowbarDto towbarDto, CarDTO carDTO, TowBarType type) {
 

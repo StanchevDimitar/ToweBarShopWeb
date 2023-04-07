@@ -12,9 +12,9 @@
         }
     </style>
 
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark" xmlns:sec="http://www.w3.org/1999/xhtml">
         <div class="container">
-            <a href="/" class="navbar-brand"><img src="/static/img/HomeLogo.png" th:src="@{/img/HomeLogo.png}" class="logo run-svg"
+            <a href="/" class="navbar-brand"><img src="/static/img/logo4.png" th:src="@{/img/logo4.png}" class="logo run-svg"
                                                   alt="logo.svn"></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -97,8 +97,12 @@
                 <td th:text="*{formatTime(completedTime)}">2023-03-28</td>
                 <td th:text="|$*{orderPrice}|">$125.50</td>
                 <td>
+
                     <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="modal"
-                            th:data-bs-target="'#openModal' + *{id}">View Order
+                            th:data-bs-target="'#openModalAddress' + *{id}">View Order
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary me-2" data-bs-toggle="modal"
+                            th:data-bs-target="'#openModal' + *{id}">View Shipping Address
                     </button>
                     <a class="btn btn-outline-danger" th:href="@{/all-orders/fromWeb/remove/{id}(id = *{id})}">
                         Mark as finished
@@ -107,6 +111,27 @@
             </tr>
 
 
+            <!-- Modal -->
+            <div class="modal fade" th:id="'openModalAddress' + *{id}" data-bs-backdrop="static" data-bs-keyboard="false"
+                 tabindex="-1"
+                 aria-labelledby="staticBackdrop" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdrop">Shipping information</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" th:each="product : ${element.products}" th:object="${product}">
+                            <h5 th:text="|Towbar type: *{type.name()}|"></h5>
+                            <h5 th:text="|Car model: *{car.make.name} *{car.model.name} *{car.generation.name} *{car.trim.name}|"></h5>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Modal -->
             <div class="modal fade" th:id="'openModal' + *{id}" data-bs-backdrop="static" data-bs-keyboard="false"
                  tabindex="-1"

@@ -2,11 +2,13 @@ package bg.softuni.towebarshopweb.service;
 
 import bg.softuni.towebarshopweb.model.dto.AddressInfoDto;
 import bg.softuni.towebarshopweb.model.entity.Order;
+import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +25,7 @@ public class OrderService {
         this.userService = userService;
     }
 
-    public boolean updateOrder(Long id, AddressInfoDto addressInfoDto) {
+    public boolean updateOrder(Long id, AddressInfoDto addressInfoDto, List<TowBar> towBarList) {
 
         Optional<Order> byId = orderRepository.findById(id);
         if (byId.isPresent()){
@@ -36,6 +38,7 @@ public class OrderService {
             order.setLastName(addressInfoDto.getLastName());
             order.setTelephoneNumber(addressInfoDto.getTelephoneNumber());
 
+            order.setProducts(towBarList);
             order.setFinished(true);
             order.setCompletedTime(LocalDateTime.now());
             order.setUser(userService.getCurrentlyLoggedInUser());
