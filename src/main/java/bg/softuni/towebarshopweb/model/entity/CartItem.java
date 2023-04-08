@@ -21,6 +21,11 @@ public class CartItem extends BaseEntity {
 
     }
 
+    public CartItem(TowBar towBar) {
+        this.towBar = towBar;
+    }
+
+
     public TowBar getTowBar() {
         return towBar;
     }
