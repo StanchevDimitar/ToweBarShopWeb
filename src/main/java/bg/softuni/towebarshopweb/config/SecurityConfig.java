@@ -54,7 +54,7 @@ public class SecurityConfig {
                 requestMatchers("/api").authenticated().
                 requestMatchers("/shop/*").authenticated().
                 // the URL-s below are available for all users - logged in and anonymous
-                        requestMatchers("/users/*").anonymous().
+                        requestMatchers("/users/login","/users/register").anonymous().
                         requestMatchers("/admin/*").hasRole("ADMIN").
                         requestMatchers("/all-orders").hasAnyRole("ADMIN","MODERATOR").
                 requestMatchers(staticResources).permitAll().

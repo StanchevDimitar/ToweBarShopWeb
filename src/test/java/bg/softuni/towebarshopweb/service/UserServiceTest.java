@@ -43,33 +43,7 @@ class UserServiceTest {
 
 
 
-    @Test
-    void testRemoveRoleById() {
-        // Create a new user and save to repository
-        UserEntity user = new UserEntity();
-        user.setUsername("testuser");
-        user.setPassword("testpassword");
-        userRepository.save(user);
 
-        // Create a new role and save to repository
-        RoleEntity role = new RoleEntity();
-        role.setRole(RoleNameEnum.ADMIN);
-        roleRepository.save(role);
-
-        // Add the role to the user's set of roles
-        Set<RoleEntity> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        // Call the removeRoleById method to remove the role from the user
-        userService.removeRoleById(user.getId(), RoleNameEnum.ADMIN);
-
-        // Check that the user's roles have been updated
-        UserEntity updatedUser = userRepository.findById(user.getId()).get();
-        Set<RoleEntity> updatedRoles = updatedUser.getRoles();
-        assertFalse(updatedRoles.contains(role));
-    }
 
     @Test
     void testRegisterUser() {

@@ -109,8 +109,7 @@ public class ProfileController {
             return "redirect:change-password";
         }
 
-        System.out.printf("Old pass is: %s\nNew pass is:", user.getCurrentPass());
-        System.out.println(user.getNewPass());
+
 
         userService.changePassword(user.getNewPass());
 

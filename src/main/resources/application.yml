@@ -2,8 +2,8 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/TowBarShop?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
-    username: root
-    password: 6969
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   servlet:
     multipart:
       max-file-size: 1MB
@@ -42,4 +42,5 @@ server:
       enabled: false
 
 
-
+DB_USERNAME: root
+DB_PASSWORD: 6969
