@@ -8,6 +8,16 @@
 <header th:replace="fragments/nav"></header>
 <body>
 
+<style>
+    .cards{
+        display: flex;
+        justify-content: center;
+    }
+    .tow_bar_img{
+
+        height: 11rem;
+    }
+</style>
 
 <!-- Here is created the first section -->
 
@@ -69,7 +79,7 @@
                 </form>
 
             </div>
-            <div class="col-9" sec:authorize="!isAuthenticated()">
+            <div sec:authorize="!isAuthenticated()">
                 <th:block sec:authorize="!isAuthenticated()">
                     <img class="img-fluid w-50" src="/static/img/car-with-spare-wheel-svgrepo-com.svg"
                          th:src="@{/img/car-with-spare-wheel-svgrepo-com.svg}" alt="Home page photo">
@@ -96,12 +106,12 @@
 <!-- Here are created the boxes -->
 
 <section class="p-5">
-    <div class="containe">
+    <div class="container">
         <div class="row text-center g-4">
-            <div class="col-md">
-                <div class="card bg-warning" style="width: 18rem;">
-                    <img src="../static/img/fixed.jpg" style="width: 18rem; height: 11rem;" th:src="@{img/fixed.jpg}"
-                         class="card-img-top" alt="...">
+            <div class="col-md cards" >
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/fixed.jpg" th:src="@{img/fixed.jpg}"
+                         class="card-img-top tow_bar_img" alt="...">
                     <div class="card-body text-bg-secondary p-3">
                         <p class="card-text">Fixed tow bars. Prose and cons. Everything you need to know!</p>
                         <a href="/info/fixed" class="btn btn-primary">Read more</a>
@@ -109,10 +119,10 @@
                 </div>
             </div>
 
-            <div class="col-md">
-                <div class="card" style="width: 18rem;">
-                    <img src="../static/img/detachable.png" style="width: 18rem; height: 11rem;"
-                         th:src="@{img/detachable.png}" class="card-img-top" alt="...">
+            <div class="col-md cards">
+                <div class="card" style="width: 18rem;  ">
+                    <img src="../static/img/detachable.png"
+                         th:src="@{img/detachable.png}" class="card-img-top tow_bar_img" alt="...">
                     <div class="card-body text-bg-secondary p-3">
                         <p class="card-text">Detachable tow bars. Prose and cons. Everything you need to know!</p>
                         <a href="/info/detachable" class="btn btn-primary">Read more</a>
@@ -120,10 +130,10 @@
                 </div>
             </div>
 
-            <div class="col-md">
-                <div class="card bg-info" style="width: 18rem;">
-                    <img src="../static/img/retractable.jpg" style="width: 18rem; height: 11rem;"
-                         th:src="@{img/retractable.jpg}" class="card-img-top" alt="...">
+            <div class="col-md cards">
+                <div class="card" style="width: 18rem;">
+                    <img src="../static/img/retractable.jpg"
+                         th:src="@{img/retractable.jpg}" class="card-img-top tow_bar_img" alt="...">
                     <div class="card-body text-bg-secondary p-3">
                         <p class="card-text">Retractable tow bars. Prose and cons. Everything you need to know!</p>
                         <a href="/info/retractable" class="btn btn-primary">Read more</a>

@@ -14,8 +14,8 @@ import java.util.Map;
 @Component
 public class IpBlackListInterceptor implements HandlerInterceptor {
 
-    private BlackListService service;
-    private ThymeleafViewResolver tlvr;
+    private final BlackListService service;
+    private final ThymeleafViewResolver tlvr;
 
     public IpBlackListInterceptor(BlackListService service,
                                   ThymeleafViewResolver tlvr) {

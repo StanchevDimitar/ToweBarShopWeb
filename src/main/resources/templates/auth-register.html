@@ -32,42 +32,13 @@
 
     <div class="half-part left-side-part" style="background-image: url('/img/953728c59e28e7e13550344d08f1b52a.jpg')">
 
-
-        <!-- Here is created the left side -->
-
-        <div id="carousel-text" class="carousel slide carousel-texter" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-text" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-text" data-slide-to="1" class="active"></li>
-                <li data-target="#carousel-text" data-slide-to="2" class="active"></li>
-            </ol>
-
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item">
-                    <h5>Buying American cars now easier than ever</h5>
-                    <p>BidCars care about every step by step process. Fast, without unnecessary paperwork and
-                        additional charges. The simplest way to import your first American's car.</p>
-                </div>
-                <div class="carousel-item">
-                    <h5>Just Bid &amp; Win with one click</h5>
-                    <p>BidCars deliver vehicle to your place of resident. Follow your vehicle location including
-                        shipping tracking. No additional charges for photos inspection at our werehouse.</p>
-                </div>
-                <div class="carousel-item active">
-                    <h5>Sign up and see how much you can buy</h5>
-                    <p>BidCars help you search through over 50 000 vehicles available to bid every month. 5
-                        werehouses localized in Newark, Savannah, Indianapolis, Houston and Los Angeles let you ship
-                        your cargo without unnecessary additionall trucking cost.</p>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Here is created the right side -->
 
     <div class="half-part right-side-part">
         <div class="middle-part">
-            <h5>Welcome to My <span>Fucking</span> site</h5>
+            <h5>Welcome to My <span>Website</span></h5>
             <h6>Set up your account and begin making your first bids!</h6>
             <form th:method="post"
                   th:object="${userModel}"
@@ -121,9 +92,14 @@
 
                 <button type="submit" class="btn btn-primary">Sign Up</button>
 
-                <p class="bottom-line-form">Already have an account? <a href="/user/login">Log in</a>
-                </p>
+
             </form>
+
+
+        </div>
+        <div class="bottom-part">
+            <p class="bottom-line-form">Already have an account? <a href="/user/login">Log in</a>
+            </p>
         </div>
     </div>
 

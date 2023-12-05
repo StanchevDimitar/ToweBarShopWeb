@@ -42,13 +42,13 @@ public class dbInit implements CommandLineRunner {
             );
         }
 
-        if (userRepository.count() == 1){
+        if (userRepository.count() == 1) {
             List<UserEntity> all = userRepository.findAll();
             UserEntity userEntity = all.get(0);
-            userService.addRoleToUserById(userEntity.getId(),RoleNameEnum.ADMIN);
+            userService.addRoleToUserById(userEntity.getId(), RoleNameEnum.ADMIN);
             userRepository.save(userEntity);
         }
 
-        }
     }
+}
 
