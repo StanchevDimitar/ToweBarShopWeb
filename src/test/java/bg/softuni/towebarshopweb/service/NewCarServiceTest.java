@@ -2,7 +2,6 @@ package bg.softuni.towebarshopweb.service;
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.*;
 import bg.softuni.towebarshopweb.repository.CarRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class CarServiceTest {
+public class NewCarServiceTest {
 
     @Mock
     private CarRepository carRepository;
@@ -36,52 +35,37 @@ public class CarServiceTest {
     private CarService carService;
 
     private CarDTO carDTO;
-    private Car car;
+    private NewCar newCar;
 
-    @BeforeEach
-    public void setUp() {
-        carDTO = new CarDTO();
-        carDTO.setMake(new Make());
-        carDTO.setModel(new Model());
-        carDTO.setGeneration(new Generation());
-        carDTO.setSerie(new Serie());
-        carDTO.setTrim(new Trim());
 
-        car = new Car();
-        car.setMake(new Make());
-        car.setModel(new Model());
-        car.setGeneration(new Generation());
-        car.setSerie(new Serie());
-        car.setTrim(new Trim());
-    }
 
     @Test
     public void testSaveCar() {
-        when(carRepository.save(any(Car.class))).thenReturn(car);
-        Car savedCar = carService.save(car);
-        assertThat(savedCar).isNotNull();
-        verify(carRepository, times(1)).save(car);
+        when(carRepository.save(any(NewCar.class))).thenReturn(newCar);
+        NewCar savedNewCar = carService.save(newCar);
+        assertThat(savedNewCar).isNotNull();
+        verify(carRepository, times(1)).save(newCar);
     }
 
     @Test
     public void testGetAllCars() {
-        List<Car> cars = List.of(car);
-        when(carRepository.findAll()).thenReturn(cars);
-        List<Car> allCars = carService.getAllCars();
-        assertThat(allCars).isEqualTo(cars);
+        List<NewCar> newCars = List.of(newCar);
+        when(carRepository.findAll()).thenReturn(newCars);
+        List<NewCar> allNewCars = carService.getAllCars();
+        assertThat(allNewCars).isEqualTo(newCars);
         verify(carRepository, times(1)).findAll();
     }
 
     @Test
     public void testCreateCarWithNewCar() {
-        when(modelMapper.map(carDTO, Car.class)).thenReturn(car);
+        when(modelMapper.map(carDTO, NewCar.class)).thenReturn(newCar);
         when(carRepository.findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId(any(), any(), any(), any(), any())).thenReturn(Optional.empty());
-        when(carRepository.save(car)).thenReturn(car);
-        Car createdCar = carService.createCar(carDTO);
-        assertThat(createdCar).isEqualTo(car);
-        verify(modelMapper, times(1)).map(carDTO, Car.class);
+        when(carRepository.save(newCar)).thenReturn(newCar);
+        NewCar createdNewCar = carService.createCar(carDTO);
+        assertThat(createdNewCar).isEqualTo(newCar);
+        verify(modelMapper, times(1)).map(carDTO, NewCar.class);
         verify(carRepository, times(1)).findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId(any(), any(), any(), any(), any());
-        verify(carRepository, times(1)).save(car);
+        verify(carRepository, times(1)).save(newCar);
     }
 
 

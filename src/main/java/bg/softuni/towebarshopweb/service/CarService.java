@@ -1,7 +1,7 @@
 package bg.softuni.towebarshopweb.service;
 
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
-import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
+import bg.softuni.towebarshopweb.model.entity.CarEntities.NewCar;
 import bg.softuni.towebarshopweb.repository.CarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpEntity;
@@ -42,21 +42,23 @@ public class CarService {
         this.modelMapper = modelMapper;
     }
 
-    public Car save(Car car) {
-        return carRepository.save(car);
+    public NewCar save(NewCar newCar) {
+        return carRepository.save(newCar);
     }
 
-    public List<Car> getAllCars() {
+    public List<NewCar> getAllCars() {
         return carRepository.findAll();
     }
 
 
-    public Car createCar(CarDTO car){
-        Optional<Car> optionalCar = carRepository.findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId
-                (car.getMake().getId(), car.getModel().getId(), car.getGeneration().getId(), car.getSerie().getId(), car.getTrim().getId());
-        Car map;
+    public NewCar createCar(CarDTO car){
+        Optional<NewCar> optionalCar = carRepository
+                .findByMakeAndYearAndModelAndGenerationAndBody
+                        (car.getMake(),car.getYear(),car.getModel(),car.getGeneration(),car.getBody());
+
+        NewCar map;
         if (optionalCar.isEmpty()) {
-            map = modelMapper.map(car, Car.class);
+            map = modelMapper.map(car, NewCar.class);
             carRepository.save(map);
         } else {
             map = optionalCar.get();

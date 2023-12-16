@@ -22,14 +22,14 @@ public class Scheduler {
     @Scheduled(fixedRate = 86_400)
     @Transactional
     public void phoneNumbersCleaner() {
-        LocalDateTime threeDaysAgoDate = LocalDateTime.now().minusDays(3);
+        LocalDateTime threeDaysAgoDate = LocalDateTime.now().minusDays(60);
 
         phoneRepository.deleteOlderThan(threeDaysAgoDate);
     }
     @Scheduled(fixedRate = 86_400)
     @Transactional
     public void ordersCleaner() {
-        LocalDateTime threeDaysAgoDate = LocalDateTime.now().minusDays(3);
+        LocalDateTime threeDaysAgoDate = LocalDateTime.now().minusDays(60);
 
         orderRepository.deleteOlderThan(threeDaysAgoDate);
     }

@@ -1,11 +1,6 @@
 package bg.softuni.towebarshopweb.model.dto;
-
-import bg.softuni.towebarshopweb.config.EmailOrBlank;
-import bg.softuni.towebarshopweb.model.entity.FileEntity;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 public class UserEditDto {
 
@@ -20,7 +15,6 @@ public class UserEditDto {
     @Pattern(regexp = "^$|^.{2,10}$", message ="Town must be between 2 and 20 symbols")
     private String town;
 
-//    @EmailOrBlank(message = "Invalid email")
     @Email(message ="Email must be valid")
     private String email;
 

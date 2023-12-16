@@ -1,11 +1,10 @@
 package bg.softuni.towebarshopweb.model.entity;
 
-import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
+import bg.softuni.towebarshopweb.model.entity.CarEntities.NewCar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "tow_bars")
@@ -22,7 +21,7 @@ public class TowBar extends BaseEntity {
     private Integer quantity;
 
     @ManyToOne()
-    private Car car;
+    private NewCar newCar;
 
     private BigDecimal price;
 
@@ -68,12 +67,12 @@ public class TowBar extends BaseEntity {
         this.type = type;
     }
 
-    public Car getCar() {
-        return car;
+    public NewCar getCar() {
+        return newCar;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCar(NewCar newCar) {
+        this.newCar = newCar;
     }
 
 }

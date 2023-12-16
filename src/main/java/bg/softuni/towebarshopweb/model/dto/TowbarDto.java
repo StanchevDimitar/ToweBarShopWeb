@@ -1,6 +1,6 @@
 package bg.softuni.towebarshopweb.model.dto;
 
-import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
+import bg.softuni.towebarshopweb.model.entity.CarEntities.NewCar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -19,7 +19,7 @@ public class TowbarDto {
     @Positive
     private BigDecimal price;
 
-    private Car car;
+    private NewCar newCar;
 
     public BigDecimal getPrice() {
         return price;
@@ -60,12 +60,12 @@ public class TowbarDto {
         return this;
     }
 
-    public Car getCar() {
-        return car;
+    public NewCar getCar() {
+        return newCar;
     }
 
-    public TowbarDto setCar(Car car) {
-        this.car = car;
+    public TowbarDto setCar(NewCar newCar) {
+        this.newCar = newCar;
         return this;
     }
 }

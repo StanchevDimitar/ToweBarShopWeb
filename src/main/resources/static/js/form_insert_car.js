@@ -1,92 +1,136 @@
 const makeDropdown = document.getElementById("makeDropdown");
-
-fetch("/api/makes")
-    .then(response => response.json())
-    .then(makes => {
-        makes.forEach(make => {
-            const option = document.createElement("option");
-
-            option.value = make.id;
-            option.text = make.name;
-            makeDropdown.add(option);
-        });
-    });
+const yearDropdown = document.getElementById("yearDropdown");
 const modelDropdown = document.getElementById("modelDropdown");
+const generationDropdown = document.getElementById("generationDropdown");
+const bodyDropdown = document.getElementById("bodyDropdown");
+
+const options = {
+    method: 'GET',
+    headers: {
+        'X-RapidAPI-Key': 'ebccc93d59msh8ebb6fd1bbad40ep170ab6jsn2cf9e3e92644',
+        'X-RapidAPI-Host': 'car-api2.p.rapidapi.com'
+    }
+};
+makeDropdown.addEventListener("click", () => {
+    fetch('https://car-api2.p.rapidapi.com/api/makes?direction=asc&sort=name', options)
+        .then(response => response.json())
+        .then(make => {
+            let data = make.data;
+
+            data.forEach(make => {
+                const option = document.createElement("option");
+                option.value = make.id;
+                option.text = make.name;
+                makeDropdown.add(option);
+            })
+        })
+})
+
+const defaultOptionYear = document.createElement("option");
+defaultOptionYear.value = "-1";
+defaultOptionYear.text = "-Select generation-";
+yearDropdown.add(defaultOptionYear, null);
+
+makeDropdown.addEventListener("change", () => {
+    // Clear existing options
+    yearDropdown.innerHTML = "";
+    yearDropdown.add(defaultOptionYear, null);
+
+    // Populate the years
+    for (let year = 2015; year <= 2023; year++) {
+        const option = document.createElement("option");
+        option.value = String(year);
+        option.text = String(year);
+        yearDropdown.add(option);
+    }
+});
+
+
 const defaultOptionModel = document.createElement("option");
 defaultOptionModel.value = "-1";
 defaultOptionModel.text = "-Select model-";
 modelDropdown.add(defaultOptionModel, null);
-makeDropdown.addEventListener("change", () => {
+yearDropdown.addEventListener("change", () => {
     const selectedMakeId = makeDropdown.value;
-    fetch(`/api/models?makeId=${selectedMakeId}`)
+    fetch(`https://car-api2.p.rapidapi.com/api/models?sort=name&direction=asc&year=${yearDropdown.value}&verbose=yes&make_id=${selectedMakeId}`, options)
         .then(response => response.json())
-        .then(models => {
+        .then(data => {
+            const models = data.data; // Access the array of model objects from the 'data' property
+
             // Clear existing options
             modelDropdown.innerHTML = "";
             modelDropdown.add(defaultOptionModel, null);
+
             // Add new options
             models.forEach(model => {
                 const option = document.createElement("option");
                 option.value = model.id;
-                option.text = model.name;
+                option.text = model.name; // Displaying both make and model names
                 modelDropdown.add(option);
             });
         });
 });
-const generationDropdown = document.getElementById("generationDropdown");
+
 const defaultOptionGeneration = document.createElement("option");
 defaultOptionGeneration.value = "-1";
 defaultOptionGeneration.text = "-Select generation-";
 generationDropdown.add(defaultOptionGeneration, null);
 
-modelDropdown.addEventListener("change", () => {
-    const selectedModelId = modelDropdown.value;
-    fetch(`/api/generations?modelId=${selectedModelId}`)
+modelDropdown.addEventListener("change", async () => {
+    const modelName = modelDropdown.options[modelDropdown.selectedIndex].text.replaceAll(" ", "+");
+    const currentUrl = `https://car-api2.p.rapidapi.com/api/trims?direction=asc&sort=name&year=${yearDropdown.value}&model=${modelName}&verbose=yes&make_id=${makeDropdown.value}`;
+
+    fetch(currentUrl, options)
         .then(response => response.json())
         .then(generations => {
             // Clear existing options
             generationDropdown.innerHTML = "";
             generationDropdown.add(defaultOptionGeneration, null);
-            // Add new options
-            generations.forEach(generation => {
-                const option = document.createElement("option");
-                option.value = generation.id;
-                option.text = generation.name;
-                generationDropdown.add(option);
+
+            const uniqueGenerationNames = new Set();
+            generations.data.forEach(gen => {
+                if (!uniqueGenerationNames.has(gen.name)) {
+                    const option = document.createElement("option");
+                    option.value = gen.id;
+                    option.text = gen.name;
+                    generationDropdown.add(option);
+
+                    uniqueGenerationNames.add(gen.name);
+                }
             });
         });
 });
-const seriesDropdown = document.getElementById("seriesDropdown");
-fetch("/api/series")
-    .then(response => response.json())
-    .then(series => {
-        series.forEach(serie => {
-            const option = document.createElement("option");
-            option.value = serie.id;
-            option.text = serie.name;
-            seriesDropdown.add(option);
-        });
-    });
-const trimDropdown = document.getElementById("trimDropdown");
-const defaultOptionTrim = document.createElement("option");
-defaultOptionTrim.value = "-1";
-defaultOptionTrim.text = "-Select trim-";
-trimDropdown.add(defaultOptionTrim, null);
-seriesDropdown.addEventListener("change", () => {
-    const selectedSeriesId = seriesDropdown.value;
-    const selectedModelId = modelDropdown.value;
-    fetch(`/api/trim?modelId=${selectedModelId}&seriesId=${selectedSeriesId}`)
+const defaultOptionBody = document.createElement("option");
+defaultOptionBody.value = "-1";
+defaultOptionBody.text = "-Select generation-";
+bodyDropdown.add(defaultOptionBody, null);
+
+generationDropdown.addEventListener("change", () => {
+
+    const modelName = modelDropdown.options[modelDropdown.selectedIndex].text.replaceAll(" ", "+");
+    const trim = generationDropdown.options[generationDropdown.selectedIndex].text;
+    const currentUrl =
+        `https://car-api2.p.rapidapi.com/api/bodies?make_id=${makeDropdown.value}&sort=type&model=${modelName}&verbose=yes&direction=asc&year=${yearDropdown.value}`
+
+    fetch(currentUrl, options)
         .then(response => response.json())
-        .then(trims => {
+        .then(bodies => {
+
+            const body = bodies.data;
             // Clear existing options
-            trimDropdown.innerHTML = "";
-            trimDropdown.add(defaultOptionTrim, null);
+            bodyDropdown.innerHTML = "";
+            bodyDropdown.add(defaultOptionGeneration, null);
+
             // Add new options
-            trims.forEach(trim => {
-                const option = document.createElement("option");
-                option.value = trim.id;
-                option.text = trim.name;
-                trimDropdown.add(option);
+            body.forEach(body => {
+                console.log(body.make_model_trim.name);
+                if (trim === body.make_model_trim.name) {
+                    const option = document.createElement("option");
+                    option.value = body.id;
+                    option.text = body.type;
+                    bodyDropdown.add(option);
+                }
+
             });
         });
 });

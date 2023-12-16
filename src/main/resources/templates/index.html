@@ -22,6 +22,7 @@
 <!-- Here is created the first section -->
 
 <section class="bg-dark text-light p-5 text-center">
+    <button style="margin-top: 5em" id="myButton" type="button">Button</button>
     <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between my-5">
             <div class="col-5 mr-5">
@@ -34,55 +35,58 @@
             <div class="col-7 mx-5" sec:authorize="isAuthenticated()">
                 <form   th:method="post"
                         th:action="@{/find-order}"
-                        th:object="${car}"
+                        th:object="${newCar}"
                         class="row g-2">
                     <div class="col-md-5">
                         <label for="makeDropdown" class="form-label">Make</label>
                         <select th:field="*{make}"
-                                class="form-select" id="makeDropdown" name="user">
+                                class="form-select" id="makeDropdown" name="make">
                             <option value="">--Select--</option>
                         </select>
                     </div>
                     <div class="col-md-5">
-                        <label for="modelDropdown" class="form-label">Model</label>
-                        <select th:field="*{model}"
-                                class="form-select" id="modelDropdown" name="user">
+                        <label for="yearDropdown" class="form-label">Year</label>
+                        <select th:field="*{year}"
+                                class="form-select" id="yearDropdown" name="year">
                             <option value="">--Select--</option>
                         </select>
                     </div>
 
                     <div class="col-md-4">
-                        <label for="generationDropdown" class="form-label">Generation</label>
-                        <select th:field="*{generation}"
-                                class="form-select" id="generationDropdown" name="user">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="seriesDropdown" class="form-label">Series</label>
-                        <select th:field="*{serie}"
-                                class="form-select" id="seriesDropdown" name="user">
-                            <option value="">--Select--</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="trimDropdown" class="form-label">Trim</label>
-                        <select th:field="*{trim}"
-                                class="form-select" id="trimDropdown" name="user">
+                        <label for="modelDropdown" class="form-label">Model</label>
+                        <select th:field="*{model}"
+                                class="form-select" id="modelDropdown" name="model">
                             <option value="">--Select--</option>
                         </select>
                     </div>
 
+                    <div class="col-md-3">
+                        <label for="generationDropdown" class="form-label">Generation</label>
+                        <select th:field="*{generation}"
+                                class="form-select" id="generationDropdown" name="generation">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="bodyDropdown" class="form-label">Body</label>
+                        <select th:field="*{body}"
+                                class="form-select" id="bodyDropdown" name="body">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+
+
                     <div class="col-10 mt-3">
-                        <button type="submit" class="btn btn-primary">Find car</button>
+                        <button type="submit" class="btn btn-primary">Find newCar</button>
                     </div>
                 </form>
 
             </div>
             <div sec:authorize="!isAuthenticated()">
                 <th:block sec:authorize="!isAuthenticated()">
-                    <img class="img-fluid w-50" src="/static/img/car-with-spare-wheel-svgrepo-com.svg"
-                         th:src="@{/img/car-with-spare-wheel-svgrepo-com.svg}" alt="Home page photo">
+                    <img class="img-fluid w-50" src="/static/img/newCar-with-spare-wheel-svgrepo-com.svg"
+                         th:src="@{/img/mazda.png}" alt="Home page photo">
                 </th:block>
             </div>
 
@@ -150,12 +154,20 @@
 <footer th:replace="fragments/footer">
 </footer>
 
+
+
 <script type="text/javascript" src="/js/form_insert_car.js"></script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+
+<script>
+    let myButton = document.getElementById("myButton");
+    myButton.addEventListener("click", kashon);
+    console.log("I was clicked!")
+</script>
 </body>
 
 </html>

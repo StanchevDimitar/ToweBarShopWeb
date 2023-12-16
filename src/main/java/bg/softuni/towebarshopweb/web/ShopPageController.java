@@ -1,7 +1,7 @@
 package bg.softuni.towebarshopweb.web;
 
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
-import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
+import bg.softuni.towebarshopweb.model.entity.CarEntities.NewCar;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
 import bg.softuni.towebarshopweb.repository.CarRepository;
@@ -49,7 +49,7 @@ public class ShopPageController {
 
         currId = id;
 
-        Optional<Car> byId = carRepository.findById(id);
+        Optional<NewCar> byId = carRepository.findById(id);
         if (byId.isEmpty()){
             throw new IllegalAccessException();
         }

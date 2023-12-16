@@ -1,12 +1,14 @@
-package bg.softuni.towebarshopweb.model.dto;
+package bg.softuni.towebarshopweb.model.entity.CarEntities;
 
-import bg.softuni.towebarshopweb.model.entity.CarEntities.*;
-import jakarta.persistence.OneToOne;
+import bg.softuni.towebarshopweb.model.entity.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
-public class CarDTO {
+@Entity
+@Table(name = "new_car")
+public class NewCar extends BaseEntity {
 
-    private Long id;
     @NotNull
     private String make;
     @NotNull
@@ -18,24 +20,14 @@ public class CarDTO {
     @NotNull
     private String body;
 
-
-    public CarDTO() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public CarDTO setId(Long id) {
-        this.id = id;
-        return this;
+    public NewCar() {
     }
 
     public String getMake() {
         return make;
     }
 
-    public CarDTO setMake(String make) {
+    public NewCar setMake(String make) {
         this.make = make;
         return this;
     }
@@ -44,7 +36,7 @@ public class CarDTO {
         return year;
     }
 
-    public CarDTO setYear(String year) {
+    public NewCar setYear(String year) {
         this.year = year;
         return this;
     }
@@ -53,7 +45,7 @@ public class CarDTO {
         return model;
     }
 
-    public CarDTO setModel(String model) {
+    public NewCar setModel(String model) {
         this.model = model;
         return this;
     }
@@ -62,7 +54,7 @@ public class CarDTO {
         return generation;
     }
 
-    public CarDTO setGeneration(String generation) {
+    public NewCar setGeneration(String generation) {
         this.generation = generation;
         return this;
     }
@@ -71,10 +63,8 @@ public class CarDTO {
         return body;
     }
 
-    public CarDTO setBody(String body) {
+    public NewCar setBody(String body) {
         this.body = body;
         return this;
     }
 }
-
-

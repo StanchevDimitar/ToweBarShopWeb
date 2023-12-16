@@ -85,12 +85,12 @@
 
                         <div class="col-12 mt-3">
                             <button type="submit" data-bs-toggle="modal"
-                                    data-bs-target="#openModal" class="btn btn-primary">Find car</button>
+                                    data-bs-target="#openModal" class="btn btn-primary">Find newCar</button>
                         </div>
 
                     </form>
 
-                    <th:block th:if="${car != null}" th:object="${car}">
+                    <th:block th:if="${newCar != null}" th:object="${newCar}">
 
                             <table class="table table-bordered table-hover mt-1 bg-white">
                                 <thead>
@@ -108,7 +108,7 @@
                                         th:method="post"
                                         th:action="@{/add-product/add/FIXED}">
                                 <tr>
-                                    <td th:text="|${car.make.name} ${car.model.name} ${car.generation.name}|"></td>
+                                    <td th:text="|${newCar.make.name} ${newCar.model.name} ${newCar.generation.name}|"></td>
                                     <td> Fixed
                                     </td>
                                     <td><input th:field="*{quantity}" type="text" id="quantityFixed" class="form-control input-custom" th:placeholder="*{quantity}"></td>
@@ -121,7 +121,7 @@
                                       th:method="post"
                                       th:action="@{/add-product/add/DETACHABLE}">
                                     <tr>
-                                        <td th:text="|${car.make.name} ${car.model.name} ${car.generation.name}|"></td>
+                                        <td th:text="|${newCar.make.name} ${newCar.model.name} ${newCar.generation.name}|"></td>
                                         <td> Detachable
                                         </td>
                                         <td><input th:field="*{quantity}" type="text" id="quantityDetachable" class="form-control input-custom" th:placeholder="*{quantity}"></td>
@@ -134,7 +134,7 @@
                                       th:method="post"
                                       th:action="@{/add-product/add/RETRACTABLE}">
                                     <tr>
-                                        <td th:text="|${car.make.name} ${car.model.name} ${car.generation.name}|"></td>
+                                        <td th:text="|${newCar.make.name} ${newCar.model.name} ${newCar.generation.name}|"></td>
                                         <td> Retractable
                                         </td>
                                         <td><input th:field="*{quantity}" type="text" id="quantityRetractable" class="form-control input-custom" th:placeholder="*{quantity}"></td>

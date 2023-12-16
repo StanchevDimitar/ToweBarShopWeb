@@ -123,7 +123,7 @@
                         </div>
                         <div class="modal-body" th:each="product : ${element.products}" th:object="${product}">
                             <h5 th:text="|Towbar type: *{type.name()}|"></h5>
-                            <h5 th:text="|Car model: *{car.make.name} *{car.model.name} *{car.generation.name} *{car.trim.name}|"></h5>
+                            <h5 th:text="|Car model: *{newCar.make.name} *{newCar.model.name} *{newCar.generation.name} *{newCar.trim.name}|"></h5>
 
                         </div>
                         <div class="modal-footer">

@@ -57,7 +57,7 @@
             <div class="profile-card p-3 py-4 mb-3">
                 <form th:method="post"
                       th:action="@{/find-order}"
-                      th:object="${car}"
+                      th:object="${newCar}"
                         class="row g-5 mb-5">
                     <div class="col-md-2">
                         <label for="makeDropdown" class="form-label">Make</label>
@@ -97,12 +97,12 @@
                     </div>
 
                     <div class="col-10 mt-3">
-                        <button type="submit" class="btn btn-primary">Find car</button>
+                        <button type="submit" class="btn btn-primary">Find newCar</button>
                     </div>
 
                 </form>
 
-                <h4 th:text="|Current car is: ${car.make.name} ${car.model.name} ${car.generation.name} ${car.trim.name}|"></h4>
+                <h4 th:text="|Current newCar is: ${newCar.make.name} ${newCar.model.name} ${newCar.generation.name} ${newCar.trim.name}|"></h4>
 
                 <div class="card mb-3">
                     <div class="card-body">

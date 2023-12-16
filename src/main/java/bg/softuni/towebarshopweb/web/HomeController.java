@@ -1,7 +1,6 @@
 package bg.softuni.towebarshopweb.web;
 
 import bg.softuni.towebarshopweb.model.dto.CarDTO;
-import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.service.CarService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Optional;
 
 @Controller
 public class HomeController {

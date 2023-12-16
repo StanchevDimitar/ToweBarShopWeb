@@ -1,14 +1,13 @@
 package bg.softuni.towebarshopweb.repository;
 
-import bg.softuni.towebarshopweb.model.entity.CarEntities.*;
+import bg.softuni.towebarshopweb.model.entity.CarEntities.NewCar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car, Long> {
+public interface CarRepository extends JpaRepository<NewCar, Long> {
 
-    Optional<Car> findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId(Long make_id, Long model_id, Long generation_id, Long serie_id, Long trim_id);
-
+    Optional<NewCar> findByMakeAndYearAndModelAndGenerationAndBody(String make, String year, String model, String generation, String body);
 }
