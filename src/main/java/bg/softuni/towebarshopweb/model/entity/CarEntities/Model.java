@@ -36,4 +36,9 @@ public class Model extends BaseEntity {
         this.make = make;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

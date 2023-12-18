@@ -62,47 +62,47 @@
                     <div class="col-md-2">
                         <label for="makeDropdown" class="form-label">Make</label>
                         <select th:field="*{make}"
-                                class="form-select" id="makeDropdown" name="user">
-                            <option value="">--Select User--</option>
+                                class="form-select" id="makeDropdown" name="make">
+                            <option value="">--Select--</option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="modelDropdown" class="form-label">Model</label>
-                        <select th:field="*{model}"
-                                class="form-select" id="modelDropdown" name="user">
-                            <option value="">--Select User--</option>
+                        <label for="yearDropdown" class="form-label">Year</label>
+                        <select th:field="*{year}"
+                                class="form-select" id="yearDropdown" name="year">
+                            <option value="">--Select--</option>
                         </select>
                     </div>
 
                     <div class="col-md-2">
+                        <label for="modelDropdown" class="form-label">Model</label>
+                        <select th:field="*{model}"
+                                class="form-select" id="modelDropdown" name="model">
+                            <option value="">--Select--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
                         <label for="generationDropdown" class="form-label">Generation</label>
                         <select th:field="*{generation}"
-                                class="form-select" id="generationDropdown" name="user">
-                            <option value="">--Select User--</option>
+                                class="form-select" id="generationDropdown" name="generation">
+                            <option value="">--Select--</option>
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="seriesDropdown" class="form-label">Series</label>
-                        <select th:field="*{serie}"
-                                class="form-select" id="seriesDropdown" name="user">
-                            <option value="">--Select User--</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label for="trimDropdown" class="form-label">Trim</label>
-                        <select th:field="*{trim}"
-                                class="form-select" id="trimDropdown" name="user">
-                            <option value="">--Select User--</option>
+                        <label for="bodyDropdown" class="form-label">Body</label>
+                        <select th:field="*{body}"
+                                class="form-select" id="bodyDropdown" name="body">
+                            <option value="">--Select--</option>
                         </select>
                     </div>
 
                     <div class="col-10 mt-3">
-                        <button type="submit" class="btn btn-primary">Find car</button>
+                        <button type="submit" class="btn btn-primary" id="submitCarButton">Find car</button>
                     </div>
 
                 </form>
 
-                <h4 th:text="|Current car is: ${car.make.name} ${car.model.name} ${car.generation.name} ${car.trim.name}|"></h4>
+                <h4 th:text="|Current car is: ${car.make} ${car.year} ${car.model} ${car.generation} ${car.body}|"></h4>
 
                 <div class="card mb-3">
                     <div class="card-body">

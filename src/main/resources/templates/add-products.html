@@ -47,37 +47,42 @@
             <div class="container col-md-10">
                 <div class="profile-card p-3 py-4">
                     <form class="row g-2"
-                        th:object="${carDTO}"
+                        th:object="${carViewDto}"
                         th:method="post"
                         th:action="@{/add-product}">
                         <div class="col-md-6">
                             <label for="makeDropdown" class="form-label">Make</label>
-                            <select th:field="*{make}" class="form-select" id="makeDropdown" name="user">
+                            <select th:field="*{make}"
+                                    class="form-select" id="makeDropdown" name="make">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="modelDropdown" class="form-label">Model</label>
-                            <select th:field="*{model}" class="form-select" id="modelDropdown" name="user">
+                            <label for="yearDropdown" class="form-label">Year</label>
+                            <select th:field="*{year}"
+                                    class="form-select" id="yearDropdown" name="year">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
 
                         <div class="col-md-6">
+                            <label for="modelDropdown" class="form-label">Model</label>
+                            <select th:field="*{model}"
+                                    class="form-select" id="modelDropdown" name="model">
+                                <option value="">--Select--</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
                             <label for="generationDropdown" class="form-label">Generation</label>
-                            <select th:field="*{generation}" class="form-select" id="generationDropdown" name="user">
+                            <select th:field="*{generation}"
+                                    class="form-select" id="generationDropdown" name="generation">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="seriesDropdown" class="form-label">Series</label>
-                            <select th:field="*{serie}" class="form-select" id="seriesDropdown" name="user">
-                                <option value="">--Select--</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="trimDropdown" class="form-label">Trim</label>
-                            <select th:field="*{trim}" class="form-select" id="trimDropdown" name="user">
+                            <label for="bodyDropdown" class="form-label">Body</label>
+                            <select th:field="*{body}"
+                                    class="form-select" id="bodyDropdown" name="body">
                                 <option value="">--Select--</option>
                             </select>
                         </div>
@@ -85,7 +90,7 @@
 
                         <div class="col-12 mt-3">
                             <button type="submit" data-bs-toggle="modal"
-                                    data-bs-target="#openModal" class="btn btn-primary">Find car</button>
+                                    data-bs-target="#openModal" class="btn btn-primary" id="submitCarButton">Find car</button>
                         </div>
 
                     </form>
@@ -108,12 +113,12 @@
                                         th:method="post"
                                         th:action="@{/add-product/add/FIXED}">
                                 <tr>
-                                    <td th:text="|${car.make.name} ${car.model.name} ${car.generation.name}|"></td>
+                                    <td th:text="|${car.make} ${car.year} ${car.model} ${car.generation} ${car.body}|"></td>
                                     <td> Fixed
                                     </td>
                                     <td><input th:field="*{quantity}" type="text" id="quantityFixed" class="form-control input-custom" th:placeholder="*{quantity}"></td>
                                     <td><input th:field="*{price}" type="text" id="priceFixed" class="form-control input-custom" th:placeholder="*{price}"></td>
-                                    <td><button type="submit" class="btn btn-outline-secondary me-2">View Order</button></td>
+                                    <td><button type="submit" class="btn btn-outline-secondary me-2">Update</button></td>
                                 </tr>
                                 </form>
 
@@ -121,7 +126,7 @@
                                       th:method="post"
                                       th:action="@{/add-product/add/DETACHABLE}">
                                     <tr>
-                                        <td th:text="|${car.make.name} ${car.model.name} ${car.generation.name}|"></td>
+                                        <td th:text="|${car.make} ${car.year} ${car.model} ${car.generation} ${car.body}|"></td>
                                         <td> Detachable
                                         </td>
                                         <td><input th:field="*{quantity}" type="text" id="quantityDetachable" class="form-control input-custom" th:placeholder="*{quantity}"></td>
@@ -134,12 +139,12 @@
                                       th:method="post"
                                       th:action="@{/add-product/add/RETRACTABLE}">
                                     <tr>
-                                        <td th:text="|${car.make.name} ${car.model.name} ${car.generation.name}|"></td>
+                                        <td th:text="|${car.make} ${car.year} ${car.model} ${car.generation} ${car.body}|"></td>
                                         <td> Retractable
                                         </td>
                                         <td><input th:field="*{quantity}" type="text" id="quantityRetractable" class="form-control input-custom" th:placeholder="*{quantity}"></td>
                                         <td><input th:field="*{price}" type="text" id="priceRetractable" class="form-control input-custom" th:placeholder="*{price}"></td>
-                                        <td><button type="submit" class="btn btn-outline-secondary me-2">View Order</button></td>
+                                        <td><button type="submit" class="btn btn-outline-secondary me-2">Update</button></td>
                                     </tr>
                                 </form>
 

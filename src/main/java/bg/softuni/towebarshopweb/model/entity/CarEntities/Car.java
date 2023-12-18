@@ -17,15 +17,30 @@ public class Car extends BaseEntity {
     private Model model;
     @OneToOne
     private Generation generation;
+    @Column
+    private String year;
     @OneToOne
     private Serie serie;
     @OneToOne
     private Trim trim;
+    @ManyToOne
+    @JoinColumn(name = "body_id")
+    private Body body;
+
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "car")
     private Set<TowBar> towBarList;
 
     public Car() {
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public Car setBody(Body body) {
+        this.body = body;
+        return this;
     }
 
     public Set<TowBar> getTowBarList() {
@@ -34,6 +49,15 @@ public class Car extends BaseEntity {
 
     public Car setTowBarList(Set<TowBar> towBarList) {
         this.towBarList = towBarList;
+        return this;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public Car setYear(String year) {
+        this.year = year;
         return this;
     }
 

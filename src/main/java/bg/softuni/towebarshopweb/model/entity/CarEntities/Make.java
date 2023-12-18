@@ -24,4 +24,9 @@ public class Make extends BaseEntity {
         this.name = name;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

@@ -1,6 +1,6 @@
 package bg.softuni.towebarshopweb.web;
 
-import bg.softuni.towebarshopweb.model.dto.CarDTO;
+import bg.softuni.towebarshopweb.model.dto.CarViewDto;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
@@ -39,8 +39,8 @@ public class ShopPageController {
     }
 
     @ModelAttribute("car")
-    public CarDTO car(){
-        return new CarDTO();
+    public CarViewDto car(){
+        return new CarViewDto();
     }
 
 
@@ -53,8 +53,8 @@ public class ShopPageController {
         if (byId.isEmpty()){
             throw new IllegalAccessException();
         }
-        CarDTO carDTO = modelMapper.map(byId.get(), CarDTO.class);
-        List<TowBar> allByCar = towBarService.findAllByCar(carDTO);
+        CarViewDto carDto = modelMapper.map(byId.get(), CarViewDto.class);
+        List<TowBar> allByCar = towBarService.findAllByCar(carDto);
 
 
         this.fixed = allByCar.get(0);
@@ -62,7 +62,7 @@ public class ShopPageController {
         this.retractable = allByCar.get(2);
 
         if (model.containsAttribute("car")) {
-            model.addAttribute("car",carDTO);
+            model.addAttribute("car",carDto);
         }
 
 //        towBarService.extractTowbarsView(model,fixed,detachable,retractable);

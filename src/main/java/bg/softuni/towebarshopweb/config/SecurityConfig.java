@@ -47,16 +47,16 @@ public class SecurityConfig {
 
                 requestMatchers("/", "/quick-order").permitAll().
                 requestMatchers("/info").permitAll().
-                requestMatchers("/add-product/*").hasAnyRole("ADMIN","MODERATOR").
+                requestMatchers("/add-product/*").hasAnyRole("ADMIN", "MODERATOR").
                 requestMatchers("/address-info/*").authenticated().
                 requestMatchers("/cart/*").authenticated().
                 requestMatchers("my-profile").authenticated().
                 requestMatchers("/api").authenticated().
                 requestMatchers("/shop/*").authenticated().
                 // the URL-s below are available for all users - logged in and anonymous
-                        requestMatchers("/users/login","/users/register").anonymous().
-                        requestMatchers("/admin/*").hasRole("ADMIN").
-                        requestMatchers("/all-orders").hasAnyRole("ADMIN","MODERATOR").
+                        requestMatchers("/users/login", "/users/register").anonymous().
+                requestMatchers("/admin/*").hasRole("ADMIN").
+                requestMatchers("/all-orders").hasAnyRole("ADMIN", "MODERATOR").
                 requestMatchers(staticResources).permitAll().
                 anyRequest().authenticated().
                 and()
@@ -108,19 +108,18 @@ public class SecurityConfig {
     }
 
 
+    private static final ClearSiteDataHeaderWriter.Directive[] SOURCE =
+            {CACHE, COOKIES, STORAGE, EXECUTION_CONTEXTS};
 
-        private static final ClearSiteDataHeaderWriter.Directive[] SOURCE =
-                {CACHE, COOKIES, STORAGE, EXECUTION_CONTEXTS};
-
-        @Bean
-        public SecurityFilterChain logOutUser(HttpSecurity http) throws Exception {
-            http
-                    .logout(logout -> logout
-                            .logoutUrl("/users/logout")
-                            .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(SOURCE)))
-                            .logoutSuccessUrl("/users/login")
-                    );
-            return http.build();
-        }
+    @Bean
+    public SecurityFilterChain logOutUser(HttpSecurity http) throws Exception {
+        http
+                .logout(logout -> logout
+                        .logoutUrl("/users/logout")
+                        .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(SOURCE)))
+                        .logoutSuccessUrl("/users/login")
+                );
+        return http.build();
+    }
 
 }

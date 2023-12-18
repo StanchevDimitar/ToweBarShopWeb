@@ -1,6 +1,6 @@
 package bg.softuni.towebarshopweb.web;
 
-import bg.softuni.towebarshopweb.model.dto.CarDTO;
+import bg.softuni.towebarshopweb.model.dto.CarViewDto;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.service.CarService;
 import jakarta.servlet.http.HttpSession;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -20,8 +19,9 @@ public class HomeController {
     private final CarService carService;
 
     @ModelAttribute("car")
-    public CarDTO car(){
-        return new CarDTO();
+    public CarViewDto car(){
+        //ToDo new carDto for the changes
+        return new CarViewDto();
     }
 
     public HomeController(CarService carService) {
@@ -40,9 +40,10 @@ public class HomeController {
     }
 
     @PostMapping("/find-order")
-    public String findProduct(@Valid CarDTO carDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String findProduct(@Valid CarViewDto carDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 
-        Long id = carService.createCar(carDTO).getId();
+        Car car = carService.createCar(carDTO);
+        Long id = car.getId();
 
 
         return "redirect:/shop/" + id;//ToDo add id

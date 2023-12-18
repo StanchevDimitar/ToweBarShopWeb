@@ -9,10 +9,8 @@ public class Generation extends BaseEntity{
 
     @Column
     private String name;
-    @Column(name = "year_begin")
-    private Integer yearBegin;
-    @Column(name = "year_end")
-    private Integer yearEnd;
+    @Column(name = "year")
+    private String year;
 
     @ManyToOne
     private Model model;
@@ -29,21 +27,12 @@ public class Generation extends BaseEntity{
         return this;
     }
 
-    public Integer getYearBegin() {
-        return yearBegin;
+    public String getYear() {
+        return year;
     }
 
-    public Generation setYearBegin(Integer yearBegin) {
-        this.yearBegin = yearBegin;
-        return this;
-    }
-
-    public Integer getYearEnd() {
-        return yearEnd;
-    }
-
-    public Generation setYearEnd(Integer yearEnd) {
-        this.yearEnd = yearEnd;
+    public Generation setYear(String year) {
+        this.year = year;
         return this;
     }
 
@@ -54,5 +43,10 @@ public class Generation extends BaseEntity{
     public Generation setModel(Model model) {
         this.model = model;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

@@ -1,6 +1,6 @@
 package bg.softuni.towebarshopweb.service;
 
-import bg.softuni.towebarshopweb.model.dto.CarDTO;
+import bg.softuni.towebarshopweb.model.dto.CarViewDto;
 import bg.softuni.towebarshopweb.model.dto.TowbarDto;
 import bg.softuni.towebarshopweb.model.entity.CarEntities.Car;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
@@ -31,7 +31,7 @@ public class TowBarService {
 
 
 
-    public TowBar findTowbarByCarAndType(CarDTO car, TowBarType towBarType) {
+    public TowBar findTowbarByCarAndType(CarViewDto car, TowBarType towBarType) {
 
         Car map = carService.createCar(car);
 
@@ -43,7 +43,7 @@ public class TowBarService {
     }
 
 
-    public List<TowBar> findAllByCar(CarDTO car) {
+    public List<TowBar> findAllByCar(CarViewDto car) {
 
         List<TowBar> towBarList = new ArrayList<>();
         towBarList.add(findTowbarByCarAndType(car, TowBarType.FIXED));
@@ -51,6 +51,7 @@ public class TowBarService {
         towBarList.add(findTowbarByCarAndType(car, TowBarType.RETRACTABLE));
         return towBarList;
     }
+
 
     public void extractTowbarsView(Model model, TowBar fixed, TowBar detachable, TowBar retractable){
         if (!model.containsAttribute("fixed")) {
@@ -65,13 +66,11 @@ public class TowBarService {
     }
 
 
-    public TowBar update(TowbarDto towbarDto, CarDTO carDTO, TowBarType type) {
+    public TowBar update(TowbarDto towbarDto, CarViewDto carDTO, TowBarType type) {
 
 
-        Optional<Car> optionalCar = carRepository.findByMakeIdAndModelIdAndGenerationIdAndSerieIdAndTrimId
-                (carDTO.getMake().getId(), carDTO.getModel().getId(), carDTO.getGeneration().getId(), carDTO.getSerie().getId(), carDTO.getTrim().getId());
 
-        Car car = optionalCar.get();
+        Car car = carService.createCar(carDTO);
         Optional<TowBar> byTypeAndCar = towBarRepository.findByTypeAndCar(type, car);
         TowBar towBar;
         if (byTypeAndCar.isPresent()) {

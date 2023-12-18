@@ -1,6 +1,6 @@
 package bg.softuni.towebarshopweb.web;
 
-import bg.softuni.towebarshopweb.model.dto.CarDTO;
+import bg.softuni.towebarshopweb.model.dto.CarViewDto;
 import bg.softuni.towebarshopweb.model.dto.TowbarDto;
 import bg.softuni.towebarshopweb.model.entity.TowBar;
 import bg.softuni.towebarshopweb.model.enums.TowBarType;
@@ -25,7 +25,7 @@ public class AddProductController {
     private final TowBarRepository towBarRepository;
     private final CarRepository carRepository;
     private final TowBarService towBarService;
-    private CarDTO car;
+    private CarViewDto car;
     private TowBar fixed;
     private TowBar detachable;
     private TowBar retractable;
@@ -37,8 +37,8 @@ public class AddProductController {
     }
 
     @ModelAttribute
-    public CarDTO car() {
-        return new CarDTO();
+    public CarViewDto car() {
+        return new CarViewDto();
     }
 
     @GetMapping("/add-product")
@@ -52,7 +52,7 @@ public class AddProductController {
     }
 
     @PostMapping("/add-product")
-    public String addingProduct(@Valid CarDTO car, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addingProduct(@Valid CarViewDto car, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "redirect:add-product";
